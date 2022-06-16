@@ -57,6 +57,7 @@ export default class ModulesManager {
                 const moduleStats = await stat(modulePath);
                 if (moduleStats.isDirectory()) {
                     this.addModule(module);
+                    this._modules.get(module).config = require(resolve(modulePath, 'config.json'));
                     const folders = await readdir(modulePath);
                     if (folders && folders.length > 0) {
                         for (const folder of folders) {

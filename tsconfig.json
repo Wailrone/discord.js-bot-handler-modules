@@ -1,4 +1,10 @@
 {
+  "include": [
+    "src/modules/**/*.json",
+    "**/*.ts",
+    "config.json"
+  ],
+
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 

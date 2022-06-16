@@ -19,6 +19,7 @@ class Bot extends Client {
     modules!: ModulesManager;
     userCooldown: Map<string, boolean>;
     moduleFunctions: (moduleName: string) => any;
+    moduleConfig: (moduleName: string) => any;
     subevents!: SubEventsManager;
 
     constructor() {
@@ -64,6 +65,9 @@ class Bot extends Client {
             this.components = new ComponentsManager(this);
             this.moduleFunctions = (moduleName: string) => {
                 return this.modules.modules.get(moduleName)?.functions
+            }
+            this.moduleConfig = (moduleName: string) => {
+                return this.modules.modules.get(moduleName)?.config ?? {}
             }
             await this.modules.loadModules().then(() => {
                 this.logger.success(`[Modules] Loaded ${this.modules?.modules.size} modules`);

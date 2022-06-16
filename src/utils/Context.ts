@@ -38,6 +38,10 @@ class Context {
         return this.client.moduleFunctions(moduleName);
     }
 
+    moduleConfig(moduleName: string) {
+        return this.client.moduleConfig(moduleName);
+    }
+    
     get customId() {
         if (this.interaction instanceof MessageComponentInteraction) {
             return this.interaction.customId.split(":")?.[0] || this.interaction.customId;

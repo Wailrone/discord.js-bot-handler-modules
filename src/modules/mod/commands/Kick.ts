@@ -24,7 +24,6 @@ export default class extends ModuleCommand {
     }
 
     async run(ctx: Context) {
-        ctx.moduleFunctions(this.module).test()
+        await ctx.reply(ctx.moduleConfig(this.module).property)
     }
-
 }
