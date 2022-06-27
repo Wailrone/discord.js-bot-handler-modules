@@ -4,7 +4,7 @@ import {Client, Collection, Intents, LimitedCollection, Options,} from "discord.
 import {ConfigFile} from "./src/utils/Constants"
 import CommandsManager from "./src/utils/CommandsManager";
 import Logger from "./src/utils/Logger";
-import * as config from "./config.json";
+import * as config from "./configuration.json";
 import ComponentsManager from "./src/utils/ComponentsManager";
 import ModulesManager from "./src/utils/ModulesManager";
 import SubEventsManager from "./src/utils/SubEventsManager";

@@ -1,5 +1,5 @@
 .idea
 node_modules
-confi.json
+configuration.json
 package-lock.json
 dist
