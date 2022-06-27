@@ -1,13 +1,13 @@
 "use strict";
 
 
-import type Context from "../../utils/Context";
-import Command from "../../utils/Command";
+import type Context from "../../../utils/Context";
+import Command from "../../../utils/Command";
 
 export default class extends Command {
     constructor() {
         super({
-            name: "User infos",
+            name: "User informations",
             category: "contextMenus",
             type: "USER",
             cooldown: 5000,
@@ -15,7 +15,7 @@ export default class extends Command {
     }
 
     async run(ctx: Context) {
-        ctx.client.commands.findCommand('userinfos').run(ctx);
+        ctx.module.commandsManager.findCommand('userinfos').run(ctx);
     }
 
 }

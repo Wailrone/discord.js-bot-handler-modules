@@ -2,6 +2,7 @@
 
 import type {ApplicationCommandOptionData, ApplicationCommandType, PermissionResolvable} from "discord.js";
 import type Context from "./Context";
+import Module from "./Module";
 
 export interface CommandInfo {
     name: string;

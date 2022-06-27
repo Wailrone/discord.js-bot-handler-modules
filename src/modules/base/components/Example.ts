@@ -1,8 +1,8 @@
 "use strict";
 
 
-import type Context from "../../utils/Context";
-import Component from "../../utils/Component";
+import type Context from "../../../utils/Context";
+import Component from "../../../utils/Component";
 
 export default class extends Component {
     constructor() {
@@ -13,7 +13,8 @@ export default class extends Component {
     }
 
     async run(ctx: Context) {
-        // Retourne donc les deux paramètres que vous avez placé dans le customId
-        console.log(ctx.customIdParams)
+        await ctx.reply("Hello world!");
+        console.log(ctx.module.config);
+        console.log(ctx.customIdParams);
     }
 }

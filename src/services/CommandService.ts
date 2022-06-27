@@ -13,6 +13,7 @@ import {
 } from "discord.js";
 import Context from "../utils/Context";
 import {Emotes} from "../utils/Constants";
+import Command from "../utils/Command";
 
 class CommandService {
     client: typeof Client;
@@ -26,8 +27,8 @@ class CommandService {
         }
     }
 
-    async handle(interaction: BaseCommandInteraction){
-        const command = this.client.commands.findCommand(interaction.commandName);
+    async handle(interaction: BaseCommandInteraction) {
+        const command = this.client.modules.findCommand(interaction.commandName);
         if (!command) return;
 
         if (interaction.channel instanceof DMChannel && !command.isAvailableInDM) return interaction.reply({

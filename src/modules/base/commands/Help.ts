@@ -1,9 +1,9 @@
 "use strict";
 
 
-import type Context from "../../utils/Context";
-import Command from "../../utils/Command.js";
-import {Emotes} from "../../utils/Constants";
+import type Context from "../../../utils/Context";
+import Command from "../../../utils/Command";
+import {Emotes} from "../../../utils/Constants";
 
 export default class extends Command {
     constructor() {
@@ -23,7 +23,7 @@ export default class extends Command {
 
     async run(ctx: Context) {
         if (ctx.args.getString("command")) {
-            const command: Command = ctx.client.commands.findCommand(ctx.args?.getString("command")?.toLowerCase())
+            const command: Command = ctx.client.modules.findCommand(ctx.args?.getString("command")?.toLowerCase())
             if (!command) return ctx.reply(`The command \`${ctx.args.getString("command")}\` doesn't exist.`);
             return ctx.reply({
                 embeds: [{
@@ -48,7 +48,7 @@ export default class extends Command {
 
         const category: string[] = [];
 
-        ctx.client.commands.commands.each((command: Command) => {
+        ctx.client.commands.fetch.each((command: Command) => {
             if (!category.includes(command.category) && !command.disabled) {
                 category.push(command.category);
             }
@@ -65,7 +65,7 @@ export default class extends Command {
                     fields: category.map(x => {
                         return {
                             name: x.toUpperCase(),
-                            value: ctx.client.commands.commands.filter((cmd: Command) => cmd.category === x && !cmd.staffOnly).map((cmd: Command) => `\`${cmd.name}\``).join(", ")
+                            value: ctx.client.commands.fetch.filter((cmd: Command) => cmd.category === x && !cmd.staffOnly).map((cmd: Command) => `\`${cmd.name}\``).join(", ")
                         };
                     }),
                 }

@@ -16,7 +16,7 @@ export default class ComponentService {
     }
 
     async handle(interaction: MessageComponentInteraction) {
-        const component = this.client.components.findComponent(interaction.customId.split(':')?.[0]);
+        const component = this.client.modules.findComponent(interaction.customId.split(':')?.[0]);
         if (!component) return;
 
         const ctx = new Context(this.client, interaction, component.customIdParams);
@@ -24,7 +24,7 @@ export default class ComponentService {
         try {
             await component.run(ctx);
         } catch (error) {
-            await this._errorWebhook.send({
+            await this._errorWebhook?.send({
                 embeds: [{
                     color: 0xFF0000,
                     title: `${Emotes.ERROR} Une erreur est survenue.`,
@@ -59,7 +59,5 @@ export default class ComponentService {
             await interaction.reply(`${Emotes.ERROR} **Une erreur est survenue. Contactez ${ctx.client.config.bot.defaultContact || "un administrateur"}.**\`\`\`js\n${error}\`\`\``);
             this.client.logger.error(error);
         }
-
     }
-
 }

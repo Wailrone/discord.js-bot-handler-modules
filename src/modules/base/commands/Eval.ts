@@ -1,8 +1,8 @@
 "use strict";
 
-import Command from "../../utils/Command";
-import Context from "../../utils/Context";
-import {Emotes} from "../../utils/Constants";
+import Command from "../../../utils/Command";
+import Context from "../../../utils/Context";
+import {Emotes} from "../../../utils/Constants";
 
 export default class extends Command {
     constructor() {

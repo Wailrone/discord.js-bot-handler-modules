@@ -2,85 +2,74 @@
 
 import Client from "../../main";
 import {resolve} from "path";
-import {access, readdir, stat} from "fs/promises";
-import Component from "./Component";
-import Command from "./Command";
-import ModuleEvent from "./ModuleEvent";
+import {access} from "fs/promises";
 import {Collection} from "discord.js";
+import CommandsManager from "./CommandsManager";
+import ComponentsManager from "./ComponentsManager";
+import Module from "./Module";
+import {accessSync, existsSync, readdirSync, statSync} from "fs";
 
 export default class ModulesManager {
-    private _client: typeof Client;
-    private _path: string;
+    private readonly _client: typeof Client;
+    private readonly _path: string;
+    public commands: CommandsManager;
+    public components: ComponentsManager;
 
     constructor(client: typeof Client) {
         this._client = client;
         this._path = resolve(__dirname, "..", "modules");
     }
 
-    private _modules: Collection<string, any> = new Collection();
+    private _modules: Collection<string, Module> = new Collection();
 
     get modules() {
         return this._modules;
     }
 
+    findComponentModule(name: string): Module {
+        return this._modules.find((module: Module) => !!module.componentsManager.findComponent(name));
+    }
+
+    findComponent(name: string) {
+        return this.findComponentModule(name).componentsManager.findComponent(name)
+    }
+
+    findCommandModule(name: string) {
+        return this._modules.find((module: Module) => !!module.commandsManager.findCommand(name));
+    }
+
+    findCommand(name: string) {
+        return this.findCommandModule(name)?.commandsManager?.findCommand(name)
+    }
+
     addModule(name: string) {
-        this._modules.set(name, {
-            events: new Collection(),
-        });
+        this._modules.set(name, new Module(this._client, name));
     }
 
-    addModuleElement(module: string, type: string, file: ModuleEvent | Component | Command) {
-        const fileName = (file instanceof Component) ? file.customId : file.name
-        if (type === "commands" && file instanceof Command) return this._client.commands.addCommand(file);
-        if (type === "components" && file instanceof Component) return this._client.components.addComponent(file);
-        this._modules.get(module)[type].set(fileName, file);
-    }
-
-    findModule(module: string, type: string, name: string) {
-        if (!name || typeof name !== "string") return undefined;
-        return this._modules.get(module)[type].find((cmd: any) => {
-            const fileName = (cmd instanceof Component) ? cmd.customId : cmd.name
-            return fileName.toLowerCase() === name.toLowerCase();
-        });
-    }
-
-    async loadModules() {
+    loadModules() {
         try {
-            await access(this._path);
+            accessSync(this._path);
         } catch (error) {
             return;
         }
-        const modules = await readdir(this._path);
+        const modules = readdirSync(this._path);
         if (!modules || modules.length > 0) {
             for (const module of modules) {
                 const modulePath = resolve(this._path, module);
-                const moduleStats = await stat(modulePath);
+                const moduleStats = statSync(modulePath);
                 if (moduleStats.isDirectory()) {
                     this.addModule(module);
-                    try {
-                        this._modules.get(module).config = require(resolve(modulePath, 'config.json'));
-                    } catch (e) {
-                        this._client.logger.warn(`[ModuleLoadWarning] No config file present for module ${module}`)
-                    }
-                    const folders = await readdir(modulePath);
-                    if (folders && folders.length > 0) {
-                        for (const folder of folders) {
-                            const folderPath = resolve(this._path, module, folder);
-                            const folderStats = await stat(folderPath);
-                            if (folderStats.isDirectory()) {
-                                const moduleElements = await readdir(folderPath);
-                                if (moduleElements && moduleElements.length > 0) {
-                                    for (const moduleElement of moduleElements) {
-                                        const pathOfModuleElement = resolve(this._path, module, folder, moduleElement);
-                                        const statsOfModuleElement = await stat(pathOfModuleElement);
-                                        if (statsOfModuleElement.isFile() && moduleElement.endsWith('.js')) this.addModuleElement(module, folder, new (require(pathOfModuleElement)?.default)(this._client));
-                                    }
-                                }
-                            } else if (folderStats.isFile() && folder.endsWith('.js')) {
-                                this._modules.get(module).functions = new (require(folderPath)?.default)(this._client);
-                            }
-                        }
-                    }
+                    const createdModule = this._modules.get(module)
+
+
+                    const configPath = resolve(modulePath, 'config.json')
+                    const configStats = statSync(configPath)
+                    if (configStats.isFile()) createdModule.config = require(configPath)
+
+
+                    const functionsPath = resolve(modulePath, 'functions.js')
+                    const functionsStats = statSync(functionsPath)
+                    if (functionsStats.isFile()) createdModule.functions = new (require(functionsPath)?.default)(this._client)
                 }
             }
         }

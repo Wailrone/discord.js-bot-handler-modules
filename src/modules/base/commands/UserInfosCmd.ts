@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 "use strict";
 
-import Command from "../../utils/Command";
-import Context from "../../utils/Context";
+import Command from "../../../utils/Command";
+import Context from "../../../utils/Context";
 
 export default class extends Command {
     constructor() {

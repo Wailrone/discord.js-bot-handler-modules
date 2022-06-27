@@ -1,20 +1,20 @@
 "use strict";
 
-import {Client, Intents, LimitedCollection, Options,} from "discord.js";
+import {Client, Collection, Intents, LimitedCollection, Options,} from "discord.js";
 import {ConfigFile} from "./src/utils/Constants"
 import CommandsManager from "./src/utils/CommandsManager";
-import EventsManager from "./src/utils/EventsManager.js";
 import Logger from "./src/utils/Logger";
 import * as config from "./config.json";
 import ComponentsManager from "./src/utils/ComponentsManager";
 import ModulesManager from "./src/utils/ModulesManager";
 import SubEventsManager from "./src/utils/SubEventsManager";
+import CommandsSetter from "./src/utils/CommandsSetter";
+import Command from "./src/utils/Command";
 
 class Bot extends Client {
     config: ConfigFile;
     logger: Logger;
-    events: EventsManager;
-    commands!: CommandsManager;
+    commands!: CommandsSetter;
     components!: ComponentsManager;
     modules!: ModulesManager;
     userCooldown: Map<string, boolean>;
@@ -56,39 +56,21 @@ class Bot extends Client {
         });
         this.config = config as ConfigFile;
         this.logger = new Logger(`Shard #${this.shard?.ids?.toString() ?? "0"}`);
-        this.events = new EventsManager(this);
         this.userCooldown = new Map();
 
         this.launch().then(async () => {
             this.modules = new ModulesManager(this);
-            this.commands = new CommandsManager(this);
-            this.components = new ComponentsManager(this);
-            this.moduleFunctions = (moduleName: string) => {
-                return this.modules.modules.get(moduleName)?.functions
-            }
-            this.moduleConfig = (moduleName: string) => {
-                return this.modules.modules.get(moduleName)?.config ?? {}
-            }
-            await this.modules.loadModules().then(() => {
+
+            try {
+                this.modules.loadModules()
                 this.logger.success(`[Modules] Loaded ${this.modules?.modules.size} modules`);
-            }).catch((error) => {
-                this.logger.error(`[ModuleLoadError] An error occured when loading modules ${error}`, error.stack);
-            });
+                this.commands = new CommandsSetter(this);
+                this.subevents = new SubEventsManager(this);
+            }
+            catch (e) {
+                this.logger.error(`[Modules] Error while loading modules: ${e}`)
+            }
 
-
-            await this.commands.loadCommands().then(() => {
-                this.logger.success(`[Commands] Loaded ${this.commands?.commands.size} commands`);
-            }).catch((error) => {
-                this.logger.error(`[CommandLoadError] An error occured when loading commands ${error}`, error.stack);
-            });
-
-            await this.components.loadComponents().then(() => {
-                this.logger.success(`[Components] Loaded ${this.components?.components.size} components`);
-            }).catch((error) => {
-                this.logger.error(`[ComponentLoadError] An error occured when loading components ${error}`, error.stack);
-            });
-
-            this.subevents = new SubEventsManager(this);
             await this.logger.debug(`Connecté en tant que ${this.user.tag}`)
 
         }).catch(error => {
@@ -97,9 +79,6 @@ class Bot extends Client {
     }
 
     async launch() {
-        await this.events.loadEvent();
-        this.logger.success(`[Events] Loaded ${this.events.events.size} events`);
-
         try {
             await this.login(this.config.bot.token);
             this.logger.success("[WS] Connected to discord");
@@ -107,6 +86,10 @@ class Bot extends Client {
             this.logger.error(`[WS] Connection error: ${error}`);
             return process.exit(1);
         }
+
+        process.on("unhandledRejection", (error: Error) => {
+            this.logger.error(`[UnhandledRejection] An error occured: ${error}`, error.stack);
+        });
     }
 }
 

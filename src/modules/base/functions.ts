@@ -1,10 +1,11 @@
 import Client from "../../../main";
+import ModuleFunctions from "../../utils/ModuleFunctions";
 
-export default class {
+export default class Functions extends ModuleFunctions {
     client: typeof Client;
 
     constructor(client : typeof Client) {
-        this.client = client;
+        super(client);
     }
 
     coucouZebi() {

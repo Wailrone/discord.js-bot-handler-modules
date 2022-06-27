@@ -6,7 +6,7 @@ import {
     CommandInteractionOptionResolver,
     Guild,
     GuildChannel,
-    GuildMember,
+    GuildMember, GuildTextBasedChannel,
     InteractionDeferReplyOptions,
     InteractionReplyOptions,
     MessageComponentInteraction,
@@ -34,6 +34,11 @@ class Context {
         this.customIdParams = interaction instanceof MessageComponentInteraction ? customIdParams.reduce((sum, key, index) => Object.assign(sum, {[key]: interaction.customId.split(":").slice(1)[index]}), {}) : null;
     }
 
+
+    get module() {
+        if (this.interaction instanceof BaseCommandInteraction) return this.client.modules.findCommandModule(this.interaction.commandName);
+        else if (this.interaction instanceof MessageComponentInteraction) return this.client.modules.findComponentModule(this.interaction.customId?.split(":")?.[0]);
+    }
     moduleFunctions(moduleName: string) {
         return this.client.moduleFunctions(moduleName);
     }
@@ -48,6 +53,7 @@ class Context {
         }
     }
 
+
     get shards(): ShardClientUtil {
         if (!this.client?.shard) throw new Error("Shard non trouvable");
         return this.client.shard;
@@ -58,10 +64,9 @@ class Context {
         return this.interaction.guild;
     }
 
-    get channel(): TextChannel | NewsChannel | ThreadChannel {
+    get channel(): GuildTextBasedChannel {
         if (!this.interaction.channel || !this.interaction.guild) throw new Error("Not a guild channel");
-        if (!(this.interaction.channel instanceof GuildChannel) &&
-            !(this.interaction.channel instanceof ThreadChannel)) throw new Error("This is not a GuildTextChannel");
+        if (!(this.interaction.channel instanceof GuildChannel) && !(this.interaction.channel instanceof ThreadChannel)) throw new Error("This is not a GuildTextChannel");
         return this.interaction.channel;
     }
 

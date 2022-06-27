@@ -2,7 +2,8 @@
   "include": [
     "src/modules/**/*.json",
     "**/*.ts",
-    "config.json"
+    "config.json",
+    "dist/.env"
   ],
 
   "compilerOptions": {
