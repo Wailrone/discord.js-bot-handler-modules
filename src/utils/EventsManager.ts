@@ -4,18 +4,15 @@
 
 import Client from "../../main";
 import {resolve} from "path";
-import {ApplicationCommandManager, Collection} from "discord.js";
-import {access, readdir, stat} from "fs/promises";
-import Command from "./Command";
+import {Collection} from "discord.js";
 import Module from "./Module";
-import {accessSync, existsSync, readdirSync, statSync} from "fs";
+import {accessSync, readdirSync, statSync} from "fs";
 import ModuleEvent from "./ModuleEvent";
 
 export default class EventsManager {
     private _client: typeof Client;
     private _path: string;
     private _module: Module;
-    private _events: Collection<string, ModuleEvent>;
 
     constructor(client: typeof Client, module: Module) {
         this._client = client;
@@ -23,6 +20,8 @@ export default class EventsManager {
         this._path = resolve(__dirname, "..", "modules", this._module.name, "events");
         this._events = new Collection();
     }
+
+    private _events: Collection<string, ModuleEvent>;
 
     get events() {
         return this._events;

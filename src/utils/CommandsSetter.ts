@@ -3,11 +3,8 @@
 // ici on gère nos commandes pour les charger ou en trouver une avec la fonction findCommand pour une command help
 
 import Client from "../../main";
-import {resolve} from "path";
 import {ApplicationCommandManager, ApplicationCommandType, Collection} from "discord.js";
-import {access, readdir, stat} from "fs/promises";
 import Command from "./Command";
-import Module from "./Module";
 
 class CommandsManager {
     private _client: typeof Client;
@@ -36,14 +33,14 @@ class CommandsManager {
                 if (cmd.type !== ApplicationCommandType.ChatInput) return {
                     name: cmd.name,
                     type: cmd.type,
-                    defaultMemberPermissions : cmd.userPerms,
+                    defaultMemberPermissions: cmd.userPerms,
                 }
                 else return {
                     name: cmd.name,
                     type: cmd.type,
                     description: cmd.description,
                     options: cmd.options,
-                    defaultMemberPermissions : cmd.userPerms,
+                    defaultMemberPermissions: cmd.userPerms,
                 }
             }));
             console.info("[Commands] Refresh the globals commands");

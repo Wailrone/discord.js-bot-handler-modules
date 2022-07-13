@@ -5,10 +5,13 @@
 > #### Merci à [@warix8](https://github.com/warix8) pour la base de la structure. N'hésitez pas à aller visiter [son profil](https://github.com/warix8) pour plus d'informations.
 
 # 📖 Documentation
+
 ## Les bases
 
 ### Le fichier config
+
 Les différents paramètres du bot se feront pour la plupart dans le fichier `configuration.json`
+
 ```json
 {
     "bot": {
@@ -27,6 +30,7 @@ Les différents paramètres du bot se feront pour la plupart dans le fichier `co
     }
 }
 ```
+
 * `mainColor` - Couleur principale du bot, utilisée dans tous les embeds du bot.
 * `errorWebhook` - Lien du webhook qui vous renverra les différentes erreurs de votre bot.
 * `token` - Le token du bot.
@@ -36,12 +40,14 @@ Les différents paramètres du bot se feront pour la plupart dans le fichier `co
 
 ### Démarrer le bot
 
-Pour démarrer le bot, il vous suffit d'exécuter la commande `npm start`. 
+Pour démarrer le bot, il vous suffit d'exécuter la commande `npm start`.
 Vous pouvez modifier le script dans le fichier `package.json`.
 
-La commande `tsc` va dans un premier temps compiler les fichiers TypeScript en JavaScript. La commande node dist/shards.js va quant à elle lancer le shardingManager.
+La commande `tsc` va dans un premier temps compiler les fichiers TypeScript en JavaScript. La commande node
+dist/shards.js va quant à elle lancer le shardingManager.
 
 Tous les fichiers compilés vont dans le dossier `dist`
+
 ```json
   "scripts": {
       "start": "tsc && node dist/shards.js"
@@ -50,18 +56,24 @@ Tous les fichiers compilés vont dans le dossier `dist`
 
 ### Héberger le bot
 
-Pour héberger le bot, rien de plus simple. Il vous suffit d'exécuter la commande `tsc` et de récupérer les fichiers présents dans le dossier `dist`. Bien évidemment, le dossier `dist` ne doit pas être conservé, seul son contenu doit "remplacer" les fichier .ts
+Pour héberger le bot, rien de plus simple. Il vous suffit d'exécuter la commande `tsc` et de récupérer les fichiers
+présents dans le dossier `dist`. Bien évidemment, le dossier `dist` ne doit pas être conservé, seul son contenu doit "
+remplacer" les fichier .ts
 
 ---
 
 ## Les modules
 
-### Le module base 
-Dans le dossier `modules`, vous verrez le module `base`, il ne doit pas être supprimé. Vous pouvez cependant supprimer les commandes et components du module base. Seuls les events sont essentiels.
+### Le module base
+
+Dans le dossier `modules`, vous verrez le module `base`, il ne doit pas être supprimé. Vous pouvez cependant supprimer
+les commandes et components du module base. Seuls les events sont essentiels.
 
 ### Ajouter un module
+
 Dans le dossier `modules`, vous pouvez rajouter un dossier sur la base du module `base`.
 Il doit contenir ces dossier et fichiers :
+
 ```
 └───moduleName
     │   config.json
@@ -76,8 +88,11 @@ Il doit contenir ces dossier et fichiers :
     └───events
             Event.ts
 ```
+
 #### Structure du fichier commande :
+
 Veuillez impérativement suivre cette structure.
+
 ````ts
 "use strict";
 
@@ -107,7 +122,9 @@ export default class extends Command {
     }
 }
 ````
+
 Voir [la documentation liée aux commandes](#les-commandes) afin d'en savoir plus sur les différents paramètres.
+
 ```js
 console.log('Coming soon !')
 ```

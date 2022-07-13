@@ -1,6 +1,6 @@
 "use strict";
 
-import {ClientEvents, Collection, Constants, Events} from "discord.js";
+import {ClientEvents, Collection, Events} from "discord.js";
 import Client from "../../main";
 import ModuleEvent from "./ModuleEvent";
 

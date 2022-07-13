@@ -5,7 +5,8 @@ import {
     CommandInteraction,
     DMChannel,
     GuildChannel,
-    Permissions, PermissionsBitField,
+    Permissions,
+    PermissionsBitField,
     ThreadChannel,
     WebhookClient,
     WebhookClientData

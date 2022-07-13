@@ -13,9 +13,9 @@ export default class Module {
     public commandsManager: CommandsManager;
     public eventsManager: EventsManager;
     public componentsManager: ComponentsManager;
-    private _client: typeof Client;
     public config: any;
     public functions: any;
+    private _client: typeof Client;
 
     constructor(client: typeof Client, name: string) {
         this._client = client;
@@ -24,8 +24,21 @@ export default class Module {
         this.eventsManager = new EventsManager(client, this);
         this.componentsManager = new ComponentsManager(client, this);
         this.config = {};
-        this.functions = class extends ModuleFunctions {}
+        this.functions = class extends ModuleFunctions {
+        }
         this.initModule()
+    }
+
+    get commands(): Collection<string, Command> {
+        return this.commandsManager.commands;
+    }
+
+    get events(): Collection<string, ModuleEvent> {
+        return this.eventsManager.events;
+    }
+
+    get components(): Collection<string, Component> {
+        return this.componentsManager.components;
     }
 
     initModule() {
@@ -43,18 +56,6 @@ export default class Module {
 
             this._client.logger.error(`[Modules] [${this.name}] Error while loading module elements : ${error}`);
         }
-    }
-
-    get commands(): Collection<string, Command> {
-        return this.commandsManager.commands;
-    }
-
-    get events(): Collection<string, ModuleEvent> {
-        return this.eventsManager.events;
-    }
-
-    get components(): Collection<string, Component> {
-        return this.componentsManager.components;
     }
 
 }

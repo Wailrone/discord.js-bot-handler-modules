@@ -1,18 +1,11 @@
 "use strict";
 
 import type {Interaction} from "discord.js";
+import {CommandInteraction, Events, MessageComponentInteraction} from "discord.js";
 import type Client from "../../../../main";
 import CommandService from "../../../services/CommandService";
 import ComponentService from "../../../services/ComponentService";
 import ModuleEvent from "../../../utils/ModuleEvent";
-import {
-    BitField,
-    ChatInputCommandInteraction, CommandInteraction,
-    Constants,
-    ContextMenuCommandInteraction,
-    Events,
-    MessageComponentInteraction
-} from "discord.js";
 
 export default class extends ModuleEvent {
     commands: CommandService;
@@ -20,9 +13,9 @@ export default class extends ModuleEvent {
 
     constructor(client: typeof Client) {
         super({
-            client : client,
-            name : Events.InteractionCreate,
-            module : "base"
+            client: client,
+            name: Events.InteractionCreate,
+            module: "base"
         });
         this.commands = new CommandService(this.client);
         this.components = new ComponentService(this.client);

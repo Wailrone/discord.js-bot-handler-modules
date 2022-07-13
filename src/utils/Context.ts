@@ -2,19 +2,19 @@
 
 import {
     CommandInteraction,
-    CommandInteractionOptionResolver, ContextMenuCommandInteraction,
+    CommandInteractionOptionResolver,
     Guild,
     GuildChannel,
-    GuildMember, GuildTextBasedChannel,
+    GuildMember,
+    GuildTextBasedChannel,
     InteractionDeferReplyOptions,
     InteractionReplyOptions,
     MessageComponentInteraction,
     MessagePayload,
-    NewsChannel,
     ShardClientUtil,
-    TextChannel,
     ThreadChannel,
-    User, UserContextMenuCommandInteraction,
+    User,
+    UserContextMenuCommandInteraction,
     WebhookEditMessageOptions
 } from "discord.js";
 import Client from "../../main";
@@ -37,20 +37,12 @@ class Context {
         if (this.interaction instanceof CommandInteraction) return this.client.modules.findCommandModule(this.interaction.commandName);
         else if (this.interaction instanceof MessageComponentInteraction) return this.client.modules.findComponentModule(this.interaction.customId?.split(":")?.[0]);
     }
-    moduleFunctions(moduleName: string) {
-        return this.client.moduleFunctions(moduleName);
-    }
 
-    moduleConfig(moduleName: string) {
-        return this.client.moduleConfig(moduleName);
-    }
-    
     get customId() {
         if (this.interaction instanceof MessageComponentInteraction) {
             return this.interaction.customId.split(":")?.[0] || this.interaction.customId;
         }
     }
-
 
     get shards(): ShardClientUtil {
         if (!this.client?.shard) throw new Error("Shard non trouvable");
@@ -82,6 +74,14 @@ class Context {
 
     get me(): GuildMember {
         return this.guild.members.me;
+    }
+
+    moduleFunctions(moduleName: string) {
+        return this.client.moduleFunctions(moduleName);
+    }
+
+    moduleConfig(moduleName: string) {
+        return this.client.moduleConfig(moduleName);
     }
 
     reply(content: string | MessagePayload | InteractionReplyOptions) {

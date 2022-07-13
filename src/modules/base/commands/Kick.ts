@@ -2,8 +2,7 @@
 
 import Command from "../../../utils/Command";
 import Context from "../../../utils/Context";
-import Client from "../../../../main";
-import {PermissionsBitField, ApplicationCommandOptionType} from "discord.js";
+import {ApplicationCommandOptionType, PermissionsBitField} from "discord.js";
 
 export default class extends Command {
     constructor() {

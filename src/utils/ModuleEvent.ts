@@ -1,8 +1,7 @@
 "use strict";
 
 import Client from "../../main";
-import {ApplicationCommandOptionData, ApplicationCommandType, Collection, PermissionResolvable} from "discord.js";
-import type Context from "./Context";
+import {ApplicationCommandType} from "discord.js";
 
 interface ModuleEventInfo {
     client: typeof Client;

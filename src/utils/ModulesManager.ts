@@ -2,18 +2,17 @@
 
 import Client from "../../main";
 import {resolve} from "path";
-import {access} from "fs/promises";
 import {Collection} from "discord.js";
 import CommandsManager from "./CommandsManager";
 import ComponentsManager from "./ComponentsManager";
 import Module from "./Module";
-import {accessSync, existsSync, readdirSync, statSync} from "fs";
+import {accessSync, readdirSync, statSync} from "fs";
 
 export default class ModulesManager {
-    private readonly _client: typeof Client;
-    private readonly _path: string;
     public commands: CommandsManager;
     public components: ComponentsManager;
+    private readonly _client: typeof Client;
+    private readonly _path: string;
 
     constructor(client: typeof Client) {
         this._client = client;

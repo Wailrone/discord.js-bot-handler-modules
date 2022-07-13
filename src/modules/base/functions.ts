@@ -4,7 +4,7 @@ import ModuleFunctions from "../../utils/ModuleFunctions";
 export default class Functions extends ModuleFunctions {
     client: typeof Client;
 
-    constructor(client : typeof Client) {
+    constructor(client: typeof Client) {
         super(client);
     }
 

@@ -1,25 +1,13 @@
 "use strict";
 
-import {
-    Client,
-    Collection,
-    IntentsBitField,
-    LimitedCollection,
-    Message,
-    Options,
-    Partials,
-    Sweepers,
-    ThreadChannel
-} from "discord.js";
+import {Client, IntentsBitField, Partials} from "discord.js";
 import {ConfigFile} from "./src/utils/Constants"
-import CommandsManager from "./src/utils/CommandsManager";
 import Logger from "./src/utils/Logger";
 import * as config from "./configuration.json";
 import ComponentsManager from "./src/utils/ComponentsManager";
 import ModulesManager from "./src/utils/ModulesManager";
 import SubEventsManager from "./src/utils/SubEventsManager";
 import CommandsSetter from "./src/utils/CommandsSetter";
-import Command from "./src/utils/Command";
 
 class Bot extends Client {
     config: ConfigFile;
@@ -34,7 +22,7 @@ class Bot extends Client {
 
     constructor() {
         super({
-            rest : {
+            rest: {
                 offset: 0,
             },
             intents: [
@@ -58,13 +46,13 @@ class Bot extends Client {
                 Partials.Channel,
             ],
             sweepers: {
-                messages : {
-                    interval : 300,
-                    lifetime : 900,
+                messages: {
+                    interval: 300,
+                    lifetime: 900,
                 },
-                threads : {
-                    interval : 3600,
-                    lifetime : 900,
+                threads: {
+                    interval: 3600,
+                    lifetime: 900,
                 }
             }
         });

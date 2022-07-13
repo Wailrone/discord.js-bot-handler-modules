@@ -5,10 +5,9 @@
 import Client from "../../main";
 import {resolve} from "path";
 import {ApplicationCommandManager, Collection} from "discord.js";
-import {access, readdir, stat} from "fs/promises";
 import Command from "./Command";
 import Module from "./Module";
-import {accessSync, existsSync, readdirSync, statSync} from "fs";
+import {accessSync, readdirSync, statSync} from "fs";
 
 export default class CommandsManager {
     private _client: typeof Client;

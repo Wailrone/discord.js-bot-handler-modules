@@ -3,10 +3,9 @@
 import Client from "../../main";
 import {resolve} from "path";
 import {Collection} from "discord.js";
-import {access, readdir, stat} from "fs/promises";
 import Component from "./Component";
 import Module from "./Module";
-import {accessSync, existsSync, readdirSync, statSync} from "fs";
+import {accessSync, readdirSync, statSync} from "fs";
 
 export default class ComponentsManager {
     private _client: typeof Client;

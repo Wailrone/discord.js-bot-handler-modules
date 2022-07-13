@@ -1,7 +1,7 @@
 "use strict";
 
 import type Client from "../../../../main";
-import {Constants, Events, TextChannel} from "discord.js";
+import {Events, TextChannel} from "discord.js";
 import {NewMessage} from "../../../utils/Constants";
 import DmChanneService from '../../../services/DmChannelService'
 import ModuleEvent from "../../../utils/ModuleEvent";
@@ -11,9 +11,9 @@ export default class extends ModuleEvent {
 
     constructor(client: typeof Client) {
         super({
-            client : client,
-            name : Events.MessageCreate,
-            module : "base"
+            client: client,
+            name: Events.MessageCreate,
+            module: "base"
         });
         this.client = client;
         this.dmChannel = new DmChanneService(this.client)
