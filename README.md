@@ -126,7 +126,7 @@ export default class extends Command {
 Voir [la documentation liée aux commandes](#les-commandes) afin d'en savoir plus sur les différents paramètres.
 
 ```js
-console.log('Coming soon !')
+console.log('Coming soon ! La documentation est en cours de rédaction.')
 ```
 
 
