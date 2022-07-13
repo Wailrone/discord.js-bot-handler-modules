@@ -14,20 +14,20 @@ Les différents paramètres du bot se feront pour la plupart dans le fichier `co
 
 ```json
 {
-    "bot": {
-        "mainColor": "#FFFFFF",
-        "errorWebhook": "WEBHOOK_URL",
-        "token": "TOKEN",
-        "defaultContact": "Wailrone™#0666",
-        "ownersIDs": [
-            "393378313663676427"
-        ]
-    },
-    "emotes": {
-        "SUCCESS": "🟢",
-        "ERROR": "🔴",
-        "WARNING": "⚠"
-    }
+  "bot": {
+    "mainColor": "#FFFFFF",
+    "errorWebhook": "WEBHOOK_URL",
+    "token": "TOKEN",
+    "defaultContact": "Wailrone™#0666",
+    "ownersIDs": [
+      "393378313663676427"
+    ]
+  },
+  "emotes": {
+    "SUCCESS": "🟢",
+    "ERROR": "🔴",
+    "WARNING": "⚠"
+  }
 }
 ```
 
@@ -50,8 +50,8 @@ Tous les fichiers compilés vont dans le dossier `dist`
 
 ```json
   "scripts": {
-      "start": "tsc && node dist/shards.js"
-  },
+"start": "tsc && node dist/shards.js"
+},
 ```
 
 ### Héberger le bot
@@ -64,6 +64,7 @@ remplacer" les fichier .ts
 
 ## Les modules
 
+Les modules vous permettront de créer un dossier propre à une seule fonctionnalité de votre bot. Vous pourrez ainsi simplement glisser le dossier vers un bot utilisant la même structure.
 ### Le module base
 
 Dans le dossier `modules`, vous verrez le module `base`, il ne doit pas être supprimé. Vous pouvez cependant supprimer
