@@ -3,6 +3,7 @@
 import Command from "../../../utils/Command";
 import Context from "../../../utils/Context";
 import Client from "../../../../main";
+import {PermissionsBitField, ApplicationCommandOptionType} from "discord.js";
 
 export default class extends Command {
     constructor() {
@@ -10,10 +11,11 @@ export default class extends Command {
             name: "kick",
             category: "owners",
             description: "kick a code.",
-            botPerms: ["ADMINISTRATOR"],
+            botPerms: [PermissionsBitField.Flags.Administrator],
             ownerOnly: true,
+            userPerms: [PermissionsBitField.Flags.Administrator],
             options: [{
-                type: 'STRING',
+                type: ApplicationCommandOptionType.String,
                 name: 'kickingthing',
                 required: true,
                 description: 'Code to kick.'

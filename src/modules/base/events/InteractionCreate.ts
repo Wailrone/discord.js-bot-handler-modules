@@ -5,7 +5,14 @@ import type Client from "../../../../main";
 import CommandService from "../../../services/CommandService";
 import ComponentService from "../../../services/ComponentService";
 import ModuleEvent from "../../../utils/ModuleEvent";
-import {Constants} from "discord.js";
+import {
+    BitField,
+    ChatInputCommandInteraction, CommandInteraction,
+    Constants,
+    ContextMenuCommandInteraction,
+    Events,
+    MessageComponentInteraction
+} from "discord.js";
 
 export default class extends ModuleEvent {
     commands: CommandService;
@@ -14,7 +21,7 @@ export default class extends ModuleEvent {
     constructor(client: typeof Client) {
         super({
             client : client,
-            name : Constants.Events.INTERACTION_CREATE,
+            name : Events.InteractionCreate,
             module : "base"
         });
         this.commands = new CommandService(this.client);
@@ -22,7 +29,7 @@ export default class extends ModuleEvent {
     }
 
     async run(interaction: Interaction) {
-        if (interaction.isApplicationCommand()) await this.commands.handle(interaction);
-        if (interaction.isMessageComponent()) await this.components.handle(interaction)
+        if (interaction instanceof CommandInteraction) await this.commands.handle(interaction);
+        if (interaction instanceof MessageComponentInteraction) await this.components.handle(interaction)
     }
 }

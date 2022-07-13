@@ -1,6 +1,6 @@
 "use strict";
 
-import {Collection, Constants} from "discord.js";
+import {ClientEvents, Collection, Constants, Events} from "discord.js";
 import Client from "../../main";
 import ModuleEvent from "./ModuleEvent";
 
@@ -9,8 +9,8 @@ export default class ModulesManager {
 
     constructor(client: typeof Client) {
         this.modulesEvents = client.modules.modules.map(m => m.events)
-        for (const event of Object.entries(Constants.Events).map(v => v[1])) {
-            client.on(event, (...args) => {
+        for (const event of Object.values(Events)) {
+            client.on(event as keyof ClientEvents, (...args) => {
                 for (const events of this.modulesEvents) {
                     events.find((e: ModuleEvent) => e.name === event)?.run(...args)
                 }
