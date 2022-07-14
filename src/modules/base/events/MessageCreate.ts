@@ -13,13 +13,13 @@ export default class extends ModuleEvent {
         super({
             client: client,
             name: Events.MessageCreate,
-            module: "base"
         });
         this.client = client;
         this.dmChannel = new DmChanneService(this.client)
     }
 
     async run(message: NewMessage) {
+        console.log(this.module.name, this.module.config)
         if (!message.guild) return await this.dmChannel.handle(message)
         if (!(message.channel instanceof TextChannel)) return
     }

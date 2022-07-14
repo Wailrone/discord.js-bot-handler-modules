@@ -15,7 +15,6 @@ export default class extends ModuleEvent {
         super({
             client: client,
             name: Events.InteractionCreate,
-            module: "base"
         });
         this.commands = new CommandService(this.client);
         this.components = new ComponentService(this.client);

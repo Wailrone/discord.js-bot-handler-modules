@@ -8,7 +8,11 @@ export default class ModulesManager {
     modulesEvents: Collection<string, ModuleEvent>[];
 
     constructor(client: typeof Client) {
-        this.modulesEvents = client.modules.modules.map(m => m.events)
+        this.modulesEvents = Array.from(client.modules.modules, ([k, m]) => {
+            return m.events.each(e => {
+                return Object.assign(e, {module: m});
+            })
+        })
         for (const event of Object.values(Events)) {
             client.on(event as keyof ClientEvents, (...args) => {
                 for (const events of this.modulesEvents) {

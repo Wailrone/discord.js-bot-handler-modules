@@ -25,6 +25,10 @@ export default class ModulesManager {
         return this._modules;
     }
 
+    findModule(name: string) {
+        return this._modules.find((module: Module) => module.name === name);
+    }
+
     findComponentModule(name: string): Module {
         return this._modules.find((module: Module) => !!module.componentsManager.findComponent(name));
     }
@@ -40,6 +44,7 @@ export default class ModulesManager {
     findCommand(name: string) {
         return this.findCommandModule(name)?.commandsManager?.findCommand(name)
     }
+
 
     addModule(name: string) {
         this._modules.set(name, new Module(this._client, name));

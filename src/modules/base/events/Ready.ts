@@ -10,7 +10,6 @@ export default class extends ModuleEvent {
         super({
             client: client,
             name: Events.ClientReady,
-            module: "base"
         });
         this.client = client;
     }

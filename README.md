@@ -107,10 +107,10 @@ export default class extends Command {
             name: "commandName",
             category: "owners",
             description: "Command Description",
-            botPerms: ["ADMINISTRATOR"],
+            userPerms: [PermissionsBitField.Flags.Administrator],
             ownerOnly: true,
             options: [{
-                type: 'STRING',
+                type: ApplicationCommandOptionType.String,
                 name: 'option',
                 required: true,
                 description: 'Option Description.'
@@ -124,7 +124,16 @@ export default class extends Command {
 }
 ````
 
+### Utilisation des fonctions de modules
+
+Vous avez la possibilité d'accéder à plusieurs informations sur le module actuellement utilisé dans 
+
 Voir [la documentation liée aux commandes](#les-commandes) afin d'en savoir plus sur les différents paramètres.
+
+## Les commandes
+
+
+
 
 ```js
 console.log('Coming soon ! La documentation est en cours de rédaction.')
