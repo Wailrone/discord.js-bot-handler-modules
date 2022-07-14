@@ -22,7 +22,9 @@ class CommandService {
     constructor(client: typeof Client) {
         this.client = client;
         try {
-            this._errorWebhook = new WebhookClient(<WebhookClientData>client.config.bot.errorWebhook);
+            this._errorWebhook = new WebhookClient({
+                url : client.config.bot.errorWebhook,
+            });
         } catch (e) {
         }
     }

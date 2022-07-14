@@ -1,7 +1,6 @@
 "use strict";
 
 import {Client, IntentsBitField, Partials} from "discord.js";
-import {ConfigFile} from "./src/utils/Constants"
 import Logger from "./src/utils/Logger";
 import * as config from "./configuration.json";
 import ComponentsManager from "./src/utils/ComponentsManager";
@@ -10,7 +9,7 @@ import SubEventsManager from "./src/utils/SubEventsManager";
 import CommandsSetter from "./src/utils/CommandsSetter";
 
 class Bot extends Client {
-    config: ConfigFile;
+    readonly config: typeof config;
     logger: Logger;
     commands!: CommandsSetter;
     components!: ComponentsManager;
@@ -56,7 +55,7 @@ class Bot extends Client {
                 }
             }
         });
-        this.config = config as ConfigFile;
+        this.config = config
         this.logger = new Logger(`Shard #${this.shard?.ids?.toString() ?? "0"}`);
         this.userCooldown = new Map();
 
