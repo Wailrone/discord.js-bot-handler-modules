@@ -1,23 +1,27 @@
 {
-  "name": "discordjs-bot-handler-modules",
-  "author": "Warix#1003 & Wailrone™#0666",
-  "license": "ISC",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "tsc && node dist/shards.js",
-    "test": "tsc --noEmit",
-    "lint": "eslint . --ext .ts",
-    "check": "yarn lint && yarn test"
-  },
-  "node": ">=16.6.0",
-  "dependencies": {
-    "discord.js": "^14.1.0",
-    "typescript": "^4.7.4"
-  },
-  "devDependencies": {
-    "@types/node": "^18.6.2",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "eslint": "^8.20.0"
-  }
+	"name": "discordjs-bot-handler-modules",
+	"author": "Warix#1003 & Wailrone™#0666",
+	"license": "ISC",
+	"version": "1.0.0",
+	"scripts": {
+		"start": "tsc && node dist/shards.js",
+		"test": "tsc --noEmit",
+		"lint": "eslint . --ext .ts",
+		"prettier": "prettier --check **/*.ts",
+		"check": "yarn lint && yarn prettier && yarn test",
+		"format": "prettier --write **/*.ts"
+	},
+	"node": ">=16.6.0",
+	"dependencies": {
+		"discord.js": "^14.1.0",
+		"typescript": "^4.7.4"
+	},
+	"devDependencies": {
+		"@types/node": "^18.6.2",
+		"@typescript-eslint/eslint-plugin": "^5.31.0",
+		"@typescript-eslint/parser": "^5.31.0",
+		"eslint": "^8.20.0",
+		"eslint-config-prettier": "^8.5.0",
+		"prettier": "^2.7.1"
+	}
 }

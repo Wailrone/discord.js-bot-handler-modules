@@ -1,9 +1,9 @@
 import Client from "../../main";
 
 export default class ModuleFunctions {
-    public client: typeof Client;
+	public client: typeof Client;
 
-    constructor(client: typeof Client) {
-        this.client = client;
-    }
+	constructor(client: typeof Client) {
+		this.client = client;
+	}
 }

@@ -15,48 +15,51 @@ name: Lint Code Base
 # Start the job on all push #
 #############################
 on:
-  push:
-    branches-ignore: []
-  pull_request:
-    branches: [master, main]
+    push:
+        branches-ignore: []
+    pull_request:
+        branches: [master, main]
 
 ###############
 # Set the Job #
 ###############
 jobs:
-  build:
-    # Name the Job
-    name: Code Linting and Testing
-    # Set the agent to run on
-    runs-on: ubuntu-latest
+    build:
+        # Name the Job
+        name: Code Linting and Testing
+        # Set the agent to run on
+        runs-on: ubuntu-latest
 
-    ##################
-    # Load all steps #
-    ##################
-    steps:
-      ##########################
-      # Checkout the code base #
-      ##########################
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
-          fetch-depth: 0
+        ##################
+        # Load all steps #
+        ##################
+        steps:
+            ##########################
+            # Checkout the code base #
+            ##########################
+            - name: Checkout Code
+              uses: actions/checkout@v3
+              with:
+                  # Full git history is needed to get a proper list of changed files within `super-linter`
+                  fetch-depth: 0
 
-      - name: Install node.js v16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
+            - name: Install node.js v16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: "yarn"
 
-      - name: Install dependencies
-        run: yarn --immutable
+            - name: Install dependencies
+              run: yarn --immutable
 
-      ################################
-      # Run Linter against code base #
-      ################################
-      - name: ESlint
-        run: yarn lint
+            ################################
+            # Run Linter against code base #
+            ################################
+            - name: ESLint
+              run: yarn lint
 
-      - name: Tests
-        run: yarn test
+            - name: Prettier
+              run: yarn format
+
+            - name: Tests
+              run: yarn test
