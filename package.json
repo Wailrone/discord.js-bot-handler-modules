@@ -1,10 +1,13 @@
 {
-  "name": "",
+  "name": "discordjs-bot-handler-modules",
   "author": "Warix#1003 & Wailrone™#0666",
   "license": "ISC",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && node dist/shards.js"
+    "start": "tsc && node dist/shards.js",
+    "test": "tsc --noEmit",
+    "lint": "eslint . --ext .ts",
+    "check": "yarn lint && yarn test"
   },
   "node": ">=16.6.0",
   "dependencies": {
