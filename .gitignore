@@ -3,4 +3,3 @@ node_modules
 configuration.json
 package-lock.json
 dist
-yarn.lock
