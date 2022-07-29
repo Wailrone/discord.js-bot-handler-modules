@@ -56,15 +56,7 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: ESlint
-        uses: github/super-linter/slim@v4
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          LINTER_RULES_PATH: /
-          JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
-          VALIDATE_JAVASCRIPT_ES: true
+        run: yarn lint
 
       - name: Tests
         run: yarn test
