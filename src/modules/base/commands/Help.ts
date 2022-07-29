@@ -4,7 +4,7 @@
 import type Context from "../../../utils/Context";
 import Command from "../../../utils/Command";
 import {Emotes} from "../../../utils/Constants";
-import {ApplicationCommandOptionType} from "discord.js";
+import {ApplicationCommandOptionType, ColorResolvable, resolveColor} from "discord.js";
 
 export default class extends Command {
     constructor() {
@@ -28,7 +28,7 @@ export default class extends Command {
             if (!command) return ctx.reply(`The command \`${ctx.args.getString("command")}\` doesn't exist.`);
             return ctx.reply({
                 embeds: [{
-                    color: ctx.client.config.bot.mainColor,
+                    color: resolveColor(ctx.client.config.bot.mainColor as ColorResolvable),
                     title: `Help - ${command.name}`,
                     description: command.description,
                     image: {
@@ -58,7 +58,7 @@ export default class extends Command {
         await ctx.reply({
             embeds: [
                 {
-                    color: ctx.client.config.bot.mainColor,
+                    color: resolveColor(ctx.client.config.bot.mainColor as ColorResolvable),
                     title: `${Emotes.SUCCESS} Help`,
                     image: {
                         url: 'https://cdn.discordapp.com/attachments/841212595343982601/881955847511613450/Divider_2.gif'

@@ -3,7 +3,7 @@
 
 import Command from "../../../utils/Command";
 import Context from "../../../utils/Context";
-import {ApplicationCommandOptionType} from "discord.js";
+import {ApplicationCommandOptionType,ColorResolvable,resolveColor} from "discord.js";
 
 export default class extends Command {
     constructor() {
@@ -29,7 +29,7 @@ export default class extends Command {
             embeds: [
                 {
                     title: `Profil de ${targetUser.tag}`,
-                    color: (await targetUser.fetch())?.accentColor || ctx.client.config.bot.mainColor,
+                    color: (await targetUser.fetch())?.accentColor || resolveColor(ctx.client.config.bot.mainColor as ColorResolvable),
                     description: `<@${targetUser.id}>`,
                     thumbnail: {
                         url: targetAvatarURL || targetUser.defaultAvatarURL,
