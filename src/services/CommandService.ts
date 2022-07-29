@@ -16,7 +16,6 @@ class CommandService {
 	client: typeof Client;
 	private _errorWebhook: WebhookClient;
 
-	
 	constructor(client: typeof Client) {
 		this.client = client;
 		try {

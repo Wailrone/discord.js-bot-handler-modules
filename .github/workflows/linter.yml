@@ -59,7 +59,7 @@ jobs:
               run: yarn lint
 
             - name: Prettier
-              run: yarn format
+              run: yarn prettier
 
             - name: Tests
               run: yarn test
