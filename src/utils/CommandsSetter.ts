@@ -24,9 +24,25 @@ class CommandsManager {
     }
 
     setCommands() {
-        if (this._globalCommands.cache.some(cmd =>
-            (this._commands.get(cmd.name)?.description || "") !== cmd?.description ||
-            (this._commands.get(cmd.name)?.options || []) !== cmd?.options
+
+        function areSameOptions(a1: any[], a2: any[]): boolean {
+            function washUndefinedAndFalse(objs: any[]) {
+                return objs?.map(obj => Object.fromEntries(Object.entries(obj).filter(e => e[1])))
+            }
+
+            function objectsEqual(o1: any, o2: any): boolean {
+                return typeof o1 === 'object' && Object.keys(o1).length > 0
+                    ? Object.keys(o1).length === Object.keys(o2).length
+                    && Object.keys(o1).every(p => objectsEqual(o1[p], o2[p]))
+                    : o1 === o2;
+            }
+
+            a1 = washUndefinedAndFalse(a1);
+            a2 = washUndefinedAndFalse(a2);
+            return a1?.length === a2?.length && a1?.every((obj, i) => objectsEqual(obj, a2[i]));
+        }
+
+        if (this._globalCommands.cache.some(cmd => (this._commands.get(cmd.name)?.description || "") !== cmd?.description || !areSameOptions(this._commands.get(cmd.name)?.options || [], cmd.options || [])
         )) {
 
             this._globalCommands.set(this._commands.map((cmd) => {

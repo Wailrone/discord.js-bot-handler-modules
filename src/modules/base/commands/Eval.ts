@@ -24,7 +24,6 @@ export default class extends Command {
 
     async run(ctx: Context) {
         try {
-
             const content = ctx.args.getString('code')
 
             const result = new Promise(async (resolve) => resolve(eval(content)));

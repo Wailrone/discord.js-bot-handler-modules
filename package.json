@@ -8,7 +8,7 @@
   },
   "node": ">=16.6.0",
   "dependencies": {
-    "discord.js": "^14.0.0-dev.1657411900-f0b68d5",
+    "discord.js": "^14.3.0",
     "typescript": "^4.7.4"
   },
   "devDependencies": {
