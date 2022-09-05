@@ -1,18 +1,18 @@
 "use strict";
 
 import Client from "../../main";
-import {ApplicationCommandType} from "discord.js";
+import {ApplicationCommandType, Events} from "discord.js";
 import Module from "./Module";
 
 interface ModuleEventInfo {
     client: typeof Client;
-    name: string;
+    name: Events;
 }
 
 export default abstract class ModuleEvent {
 
     client: typeof Client;
-    name: string;
+    name: Events;
     module: Module;
 
     constructor(info: ModuleEventInfo) {

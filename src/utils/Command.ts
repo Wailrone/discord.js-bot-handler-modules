@@ -14,7 +14,6 @@ export interface CommandInfo {
     botPerms?: PermissionResolvable;
     disabled?: boolean;
     ownerOnly?: boolean;
-    staffOnly?: boolean;
     type?: ApplicationCommandType;
     cooldown?: number;
     isAvailableInDM?: boolean;
@@ -30,7 +29,6 @@ export default abstract class Command {
     botPerms: PermissionResolvable;
     disabled: boolean;
     ownerOnly: boolean;
-    staffOnly: boolean;
     cooldown: number;
     type: ApplicationCommandType;
     isAvailableInDM: boolean;
@@ -41,12 +39,10 @@ export default abstract class Command {
         this.description = info.description;
         this.options = info.options || [];
         this.examples = info.examples || [];
-
         this.userPerms = info.userPerms || [];
         this.botPerms = info.botPerms || [];
         this.disabled = info.disabled || false;
         this.ownerOnly = info.ownerOnly || false;
-        this.staffOnly = info.staffOnly || false;
         this.cooldown = info.cooldown || 3000;
         this.type = info.type || ApplicationCommandType.ChatInput;
         this.isAvailableInDM = info.isAvailableInDM || false;

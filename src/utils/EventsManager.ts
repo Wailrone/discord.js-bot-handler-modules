@@ -27,7 +27,8 @@ export default class EventsManager {
         return this._events;
     }
 
-    addEvent(event: ModuleEvent) {
+    addEvent(event: ModuleEvent, module: Module) {
+        event.module = module;
         this._events.set(event.name.toLowerCase(), event);
     }
 
@@ -54,7 +55,7 @@ export default class EventsManager {
                     const cmdStats = statSync(cmdPath);
 
                     if (cmdStats.isFile() && event.endsWith(".js")) {
-                        this.addEvent(new (require(cmdPath)?.default)(this._client));
+                        this.addEvent(new (require(cmdPath)?.default)(this._client), this._module);
                     }
                 }
             }

@@ -1,5 +1,5 @@
 import Bot from '../../main'
-import {MessageComponentInteraction, WebhookClient} from "discord.js";
+import {MessageComponentInteraction, ModalSubmitInteraction, WebhookClient} from "discord.js";
 import Context from "../utils/Context";
 import {Emotes} from "../utils/Constants";
 
@@ -17,7 +17,7 @@ export default class ComponentService {
         }
     }
 
-    async handle(interaction: MessageComponentInteraction) {
+    async handle(interaction: MessageComponentInteraction | ModalSubmitInteraction) {
         const component = this.client.modules.findComponent(interaction.customId.split(':')?.[0]);
         if (!component) return;
 

@@ -10,7 +10,7 @@ import {
     InteractionDeferReplyOptions,
     InteractionReplyOptions,
     MessageComponentInteraction,
-    MessagePayload,
+    MessagePayload, ModalSubmitInteraction,
     ShardClientUtil,
     ThreadChannel,
     User,
@@ -20,16 +20,16 @@ import {
 import Client from "../../main";
 
 class Context {
-    interaction: CommandInteraction | MessageComponentInteraction;
+    interaction: CommandInteraction | MessageComponentInteraction | ModalSubmitInteraction;
     client: typeof Client;
     args: CommandInteractionOptionResolver;
     customIdParams: { [p: string]: string };
 
-    constructor(client: typeof Client, interaction: CommandInteraction | MessageComponentInteraction, customIdParams?: string[]) {
+    constructor(client: typeof Client, interaction: CommandInteraction | MessageComponentInteraction | ModalSubmitInteraction, customIdParams?: string[]) {
         this.interaction = interaction;
         this.client = client;
         this.args = (interaction instanceof CommandInteraction ? interaction.options : null) as CommandInteractionOptionResolver;
-        this.customIdParams = interaction instanceof MessageComponentInteraction ? customIdParams.reduce((sum, key, index) => Object.assign(sum, {[key]: interaction.customId.split(":").slice(1)[index]}), {}) : null;
+        this.customIdParams = (interaction instanceof MessageComponentInteraction || interaction instanceof ModalSubmitInteraction) ? customIdParams.reduce((sum, key, index) => Object.assign(sum, {[key]: interaction.customId.split(":").slice(1)[index]}), {}) : null;
     }
 
 

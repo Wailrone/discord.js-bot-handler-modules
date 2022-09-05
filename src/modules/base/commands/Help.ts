@@ -66,7 +66,7 @@ export default class extends Command {
                     fields: category.map(x => {
                         return {
                             name: x.toUpperCase(),
-                            value: ctx.client.commands.fetch.filter((cmd: Command) => cmd.category === x && !cmd.staffOnly).map((cmd: Command) => `\`${cmd.name}\``).join(", ")
+                            value: ctx.client.commands.fetch.filter((cmd: Command) => cmd.category === x && !cmd.ownerOnly).map((cmd: Command) => `\`${cmd.name}\``).join(", ")
                         };
                     }),
                 }

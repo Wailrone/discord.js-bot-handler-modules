@@ -1,7 +1,7 @@
 "use strict";
 
 import type {Interaction} from "discord.js";
-import {CommandInteraction, Events, MessageComponentInteraction} from "discord.js";
+import {CommandInteraction, Events, MessageComponentInteraction, ModalSubmitInteraction} from "discord.js";
 import type Client from "../../../../main";
 import CommandService from "../../../services/CommandService";
 import ComponentService from "../../../services/ComponentService";
@@ -22,6 +22,7 @@ export default class extends ModuleEvent {
 
     async run(interaction: Interaction) {
         if (interaction instanceof CommandInteraction) await this.commands.handle(interaction);
-        if (interaction instanceof MessageComponentInteraction) await this.components.handle(interaction)
+        if (interaction instanceof MessageComponentInteraction || interaction instanceof ModalSubmitInteraction) await this.components.handle(interaction)
+
     }
 }

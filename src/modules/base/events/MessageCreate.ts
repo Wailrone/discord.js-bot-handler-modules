@@ -1,8 +1,7 @@
 "use strict";
 
 import type Client from "../../../../main";
-import {Events, TextChannel} from "discord.js";
-import {NewMessage} from "../../../utils/Constants";
+import {Events, Message, TextChannel} from "discord.js";
 import DmChanneService from '../../../services/DmChannelService'
 import ModuleEvent from "../../../utils/ModuleEvent";
 
@@ -18,7 +17,7 @@ export default class extends ModuleEvent {
         this.dmChannel = new DmChanneService(this.client)
     }
 
-    async run(message: NewMessage) {
+    async run(message: Message) {
         console.log(this.module.name, this.module.config)
         if (!message.guild) return await this.dmChannel.handle(message)
         if (!(message.channel instanceof TextChannel)) return
