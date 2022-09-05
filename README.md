@@ -49,9 +49,11 @@ dist/shards.js va quant à elle lancer le shardingManager.
 Tous les fichiers compilés vont dans le dossier `dist`
 
 ```json
+{
   "scripts": {
-"start": "tsc && node dist/shards.js"
-},
+    "start": "tsc && node dist/shards.js"
+  }
+}
 ```
 
 ---
@@ -134,8 +136,6 @@ import {Events, Message, TextChannel} from "discord.js";
 import ModuleEvent from "../../../utils/ModuleEvent";
 
 export default class extends ModuleEvent {
-    dmChannel: DmChanneService;
-
     constructor(client: typeof Client) {
         super({
             client: client,
@@ -250,7 +250,7 @@ suivant : `deleteMessage:channelId:messageId`.
 - Lorsqu'un utilisateur cliquera sur le bouton, vous allez pouvoir récupérer les paramètres dans le `Context`
   via `ctx.customIdParams`, et le customId ( ici `deleteMessage` via `ctx.customId` ). Donc`ctx.customIdParams` vaudra :
 
-```json
+```js
 {
   channelId: "812366241679147048",
   messageId: "831511069948117012"
